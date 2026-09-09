@@ -1,0 +1,36 @@
+name: "Platform Infrastructure & App Test Framework"
+
+on:
+  push:
+    branches: [ "main" ] # Triggers tests whenever you save file modifications
+  workflow_dispatch:      # Adds a manual "Run workflow" click button for testing
+
+jobs:
+  test-platform:
+    runs-on: ubuntu-latest # Runs inside an industry-standard secure Linux container
+
+    steps:
+    - name: Download Project Repository Files
+      uses: actions/checkout@v4
+
+    - name: Setup Terraform Verification Engine
+      uses: hashicorp/setup-terraform@v3
+      with:
+        terraform_version: 1.5.7
+
+    - name: Execute Core Architecture Validation Checks
+      run: |
+        cd terraform/environments/global
+        terraform init -backend=false
+        terraform validate
+
+    - name: Setup Node.js Environment for Pulumi App Layer
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18
+
+    - name: Verify Pulumi Application Sandbox Dependencies Compilation
+      run: |
+        cd pulumi
+        npm install
+
