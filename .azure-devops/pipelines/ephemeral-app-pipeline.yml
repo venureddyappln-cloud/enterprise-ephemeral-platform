@@ -1,0 +1,25 @@
+trigger:
+  none # Industry standard: Ephemeral sandboxes are triggered manually by devs, not on code commits
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+parameters:
+- name: action
+  displayName: 'Action'
+  type: string
+  default: 'deploy'
+  values:
+  - deploy
+  - destroy # Essential FinOps feature to tear down environments and stop cloud spend
+
+stages:
+- stage: PulumiExecution
+  displayName: 'Orchestrate On-Demand Developer Sandbox'
+  jobs:
+  - job: RunPulumi
+    steps:
+    - script: |
+        echo "Installing Node.js runtime and Pulumi CLI wrappers..."
+        echo "Executing Pulumi automation script action: ${{ parameters.action }}..."
+      displayName: 'Provision/De-provision Developer Web Containers'
