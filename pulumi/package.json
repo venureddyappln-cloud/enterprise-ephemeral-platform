@@ -1,0 +1,10 @@
+{
+  "name": "enterprise-ephemeral-platform",
+  "version": "1.0.0",
+  "description": "A cloud-agnostic application sandbox provisioning framework",
+  "main": "index.js",
+  "dependencies": {
+    "@pulumi/azure-native": "^2.0.0",
+    "@pulumi/pulumi": "^3.0.0"
+  }
+}
