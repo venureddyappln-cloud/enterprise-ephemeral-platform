@@ -1,0 +1,5 @@
+name: enterprise-ephemeral-platform
+runtime: nodejs # We use TypeScript/JavaScript to mimic dynamic app development
+description: A cloud-agnostic application sandbox provisioning framework
+backend:
+  url: url://# Use managed state backend storage
